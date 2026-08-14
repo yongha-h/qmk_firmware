@@ -23,6 +23,24 @@ enum layers {
     MAC_FN1,
     WIN_FN1,
     FN2,
+    NAV,
+};
+
+// Corner key: tap = Caps Word, double-tap = Caps Lock
+enum tap_dances {
+    TD_CAPS,
+};
+
+static void td_caps_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        caps_word_toggle();
+    } else {
+        tap_code(KC_CAPS);
+    }
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_caps_finished, NULL),
 };
 
 // clang-format off
@@ -30,16 +48,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_69(
         KC_ESC,  KC_1,     KC_2,     KC_3,    KC_4,    KC_5,    KC_6,        KC_7,     KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSLS,           KC_MUTE,
         KC_TAB,  KC_Q,     KC_W,     KC_E,    KC_R,    KC_T,    KC_Y,        KC_U,     KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSPC,           KC_DEL,
-        KC_LCTL, KC_A,     KC_S,     KC_D,    KC_F,    KC_G,                 KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,            KC_HOME,
-        KC_LSFT,           KC_Z,     KC_X,    KC_C,    KC_V,    KC_B,        KC_B,     KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT, KC_UP,
-        KC_CAPS, KC_LOPTN, KC_LCMMD,          KC_SPC,           MO(MAC_FN1), MO(FN2),          KC_SPC,            KC_RCMMD,            KC_LEFT, KC_DOWN,  KC_RGHT),
+        LCTL_T(KC_ESC), KC_A, KC_S,  KC_D,    KC_F,    KC_G,                 KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,            KC_HOME,
+        SC_LSPO,           KC_Z,     KC_X,    KC_C,    KC_V,    KC_B,        KC_B,     KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  SC_RSPC, KC_UP,
+        TD(TD_CAPS), KC_LOPTN, KC_LCMMD, LT(NAV, KC_SPC),      MO(MAC_FN1), LT(FN2, KC_GRV),  KC_SPC,            KC_RCMMD,            KC_LEFT, KC_DOWN,  KC_RGHT),
 
     [WIN_BASE] = LAYOUT_ansi_69(
         KC_ESC,  KC_1,     KC_2,     KC_3,    KC_4,    KC_5,    KC_6,        KC_7,     KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSLS,           KC_MUTE,
         KC_TAB,  KC_Q,     KC_W,     KC_E,    KC_R,    KC_T,    KC_Y,        KC_U,     KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSPC,           KC_DEL,
-        KC_LCTL, KC_A,     KC_S,     KC_D,    KC_F,    KC_G,                 KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,            KC_HOME,
-        KC_LSFT,           KC_Z,     KC_X,    KC_C,    KC_V,    KC_B,        KC_B,     KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT, KC_UP,
-        KC_CAPS, KC_LWIN,  KC_LALT,           KC_SPC,           MO(WIN_FN1), MO(FN2),          KC_SPC,            KC_RALT,             KC_LEFT, KC_DOWN,  KC_RGHT),
+        LCTL_T(KC_ESC), KC_A, KC_S,  KC_D,    KC_F,    KC_G,                 KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,            KC_HOME,
+        SC_LSPO,           KC_Z,     KC_X,    KC_C,    KC_V,    KC_B,        KC_B,     KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  SC_RSPC, KC_UP,
+        TD(TD_CAPS), KC_LWIN, KC_LALT, LT(NAV, KC_SPC),        MO(WIN_FN1), LT(FN2, KC_GRV),  KC_SPC,            KC_RALT,             KC_LEFT, KC_DOWN,  KC_RGHT),
 
     [MAC_FN1] = LAYOUT_ansi_69(
         KC_GRV,  KC_BRID,  KC_BRIU,  KC_MCTRL,KC_LNPAD,RGB_VAD, RGB_VAI,     KC_MPRV,  KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,           RGB_TOG,
@@ -60,6 +78,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, BT_HST1,  BT_HST2,  BT_HST3, P2P4G,   _______, _______,     _______,  _______, _______, _______,  _______,  _______,  _______,           _______,
         _______, _______,  _______,  _______, _______, _______,              _______,  _______, _______, _______,  _______,  _______,  _______,           _______,
         _______,           _______,  _______, _______, _______, BAT_LVL,     BAT_LVL,  _______, _______, _______,  _______,  _______,  _______, _______,
+        _______, _______,  _______,           _______,          _______,     _______,           _______,           _______,            _______, _______,  _______),
+
+   [NAV] = LAYOUT_ansi_69(
+        _______, _______,  _______,  _______, _______, _______, _______,     _______,  _______, _______, _______,  _______,  _______,  _______,           _______,
+        _______, _______,  LALT(KC_RGHT), KC_END, _______, _______, _______, KC_PGUP,  _______, _______, _______,  _______,  _______,  _______,           _______,
+        _______, KC_HOME,  _______,  KC_PGDN, _______, _______,             KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT,  _______,  _______,  _______,           _______,
+        _______,           _______,  _______, _______, _______, LALT(KC_LEFT), LALT(KC_LEFT), _______, _______, _______, _______, _______, _______, _______,
         _______, _______,  _______,           _______,          _______,     _______,           _______,           _______,            _______, _______,  _______)
 };
 
@@ -70,6 +95,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [MAC_FN1]  = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
     [WIN_FN1]  = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
     [FN2]      = {ENCODER_CCW_CW(_______, _______)},
+    [NAV]      = {ENCODER_CCW_CW(_______, _______)},
 };
 #endif // ENCODER_MAP_ENABLE
 
