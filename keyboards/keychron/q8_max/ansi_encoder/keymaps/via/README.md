@@ -21,7 +21,6 @@ side switch stays in **Mac mode** for both machines.
 
 | Chord | Sends |
 |---|---|
-| Ctrl + H / J / K / L | ← ↓ ↑ → (Ctrl suppressed) |
 | **Right** Shift + `[` / `;` / `'` / `/` | ↑ ← → ↓ (HHKB-style; Left Shift still types `{` `:` `"` `?`) |
 
 ## NAV layer (hold left spacebar)
@@ -49,6 +48,9 @@ side switch stays in **Mac mode** for both machines.
 
 - **Space Cadet shifts** (tap = parens): misfires against the Shift+Space
   Korean/English IME toggle. Do not re-add.
+- **Ctrl+H/J/K/L → arrows** (key overrides): superseded by the NAV layer on
+  the left spacebar; removed to restore native terminal control codes
+  (Ctrl+H backspace, Ctrl+K kill-line, Ctrl+L clear).
 
 ## Host-side settings that matter
 

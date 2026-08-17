@@ -101,12 +101,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 // clang-format on
 
-// Vim-style navigation: Ctrl+H/J/K/L send plain arrow keys (Ctrl suppressed)
-const key_override_t ctrl_h_override = ko_make_basic(MOD_MASK_CTRL, KC_H, KC_LEFT);
-const key_override_t ctrl_j_override = ko_make_basic(MOD_MASK_CTRL, KC_J, KC_DOWN);
-const key_override_t ctrl_k_override = ko_make_basic(MOD_MASK_CTRL, KC_K, KC_UP);
-const key_override_t ctrl_l_override = ko_make_basic(MOD_MASK_CTRL, KC_L, KC_RGHT);
-
 // HHKB-style navigation on Right Shift only (Left Shift keeps { : " ?)
 const key_override_t rsft_lbrc_override = ko_make_basic(MOD_BIT(KC_RSFT), KC_LBRC, KC_UP);
 const key_override_t rsft_scln_override = ko_make_basic(MOD_BIT(KC_RSFT), KC_SCLN, KC_LEFT);
@@ -114,10 +108,6 @@ const key_override_t rsft_quot_override = ko_make_basic(MOD_BIT(KC_RSFT), KC_QUO
 const key_override_t rsft_slsh_override = ko_make_basic(MOD_BIT(KC_RSFT), KC_SLSH, KC_DOWN);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &ctrl_h_override,
-    &ctrl_j_override,
-    &ctrl_k_override,
-    &ctrl_l_override,
     &rsft_lbrc_override,
     &rsft_scln_override,
     &rsft_quot_override,
