@@ -34,7 +34,8 @@ side switch stays in **Mac mode** for both machines.
 
 ## Other behavior
 
-- `Shift+Esc` → `~` (stock Keychron behavior, kept)
+- `Shift+Esc` → `~` — **not firmware**: a Karabiner-Elements rule on the Mac
+  (Mac-only; on the Windows machine use `Fn2+Esc` for `~`)
 - `Fn1` layer: stock Keychron media/brightness row, Bluetooth keys, RGB
 - `Fn2` layer: F1–F12 on the number row (hold the right Fn key)
 - Tap-hold tuning: `TAPPING_TERM 180`, `PERMISSIVE_HOLD` (`config.h`)
@@ -57,7 +58,12 @@ side switch stays in **Mac mode** for both machines.
 - macOS: **"Use F1, F2, etc. keys as standard function keys" is ON**
   (System Settings → Keyboard → Keyboard Shortcuts → Function Keys).
   Without it macOS turns the Fn2 layer's F1/F2 into brightness keys.
-- No OS-level modifier remapping anywhere (all remaps are in firmware).
+- **Karabiner-Elements runs on the Mac** with two rules: `Shift+Esc → ~` and
+  `Shift+Space → Ctrl+Space` (Korean/English input toggle). Both are Mac-only.
+  A third rule (`left_control+hjkl → arrows`) was removed 2026-08-19 when the
+  equivalent firmware overrides were retired — when debugging "keyboard"
+  behavior on the Mac, always check Karabiner first.
+- No other OS-level modifier remapping (all other remaps are in firmware).
 
 ## Building
 
